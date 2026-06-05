@@ -65,7 +65,7 @@ Plus 7 non-negotiable rules (plugin last, never read `.value` in render, never c
 
 ## 📚 What's inside
 
-SKILL.md + **23 reference files**, loaded on demand:
+SKILL.md + **25 reference files**, loaded on demand:
 
 ```
 reanimated/
@@ -86,7 +86,9 @@ reanimated/
     ├── shared-element-transitions.md  # tag-based shared elements
     ├── css-animations-v4.md           # Reanimated 4 CSS animations/transitions
     ├── keyboard-and-input-motion.md   # useAnimatedKeyboard, composer lift, sticky CTA
-    ├── navigation-animations.md       # React Navigation / Expo Router transitions, tabs, shared elements
+    ├── navigation-animations.md       # Navigation overview: Reanimated × React Navigation / Expo Router
+    ├── react-navigation-transitions.md # Deep: native-stack presets vs JS-stack cardStyleInterpolator/transitionSpec
+    ├── expo-router-transitions.md      # Expo Router route animations, modals/sheets, custom transitions
     ├── frame-loops-and-realtime.md    # useFrameCallback — game loops, physics, scrubbers
     ├── advanced-runtimes.md           # createWorkletRuntime, off-UI-thread computation (expert)
     ├── patterns-recipes.md            # 11 production recipes (swipe-delete, parallax, sheet, shimmer…)

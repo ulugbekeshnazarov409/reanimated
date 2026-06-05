@@ -78,7 +78,9 @@ Everything else — animation functions, interpolation, gestures, layout animati
 - `references/shared-element-transitions.md` — Shared element transitions (tag-based) + caveats / status.
 - `references/css-animations-v4.md` — **Reanimated 4** CSS-style `animationName`/transitions on `Animated` components; when to prefer over shared values.
 - `references/keyboard-and-input-motion.md` — `useAnimatedKeyboard`; chat composer lift, sticky CTA above keyboard, list-follow; `react-native-keyboard-controller`. Where real apps break.
-- `references/navigation-animations.md` — React Navigation / Expo Router: stack/modal transitions, animated tab bars, scroll-driven headers, shared elements, focus-aware animations, swipe-back.
+- `references/navigation-animations.md` — Navigation overview: how Reanimated meets React Navigation / Expo Router (transitions, animated tab bars, scroll headers, shared elements, focus-aware, swipe-back).
+- `references/react-navigation-transitions.md` — **Deep router/screen transitions.** native-stack presets + sheets vs JS-stack `cardStyleInterpolator`/`transitionSpec`/`TransitionPresets`, gesture dismiss, shared elements, modal/tab transitions.
+- `references/expo-router-transitions.md` — **Expo Router** route animations: `<Stack>`/`<Tabs>` options, `presentation` modals + native form sheets, custom in-screen transitions, animated tab bar, shared elements, focus.
 - `references/frame-loops-and-realtime.md` — `useFrameCallback`: per-frame worklets for game loops, physics, scrubbers, Skia/audio visualizers; delta-time integration.
 - `references/advanced-runtimes.md` — Expert: `createWorkletRuntime`, `runOnRuntime`/`scheduleOnRuntime`, off-UI-thread background worklet computation; when (not) to use.
 - `references/patterns-recipes.md` — Production recipes: press scale, swipe-to-delete, drag-to-reorder, parallax/collapsing header, animated tab indicator, bottom sheet, skeleton shimmer, numeric roll, FlatList item entrances, accordion, pull-to-refresh.
