@@ -19,7 +19,7 @@ One-line purpose + version note for every common export. Import from `react-nati
 | `useAnimatedKeyboard()` | Keyboard height/state as shared values. |
 | `useFrameCallback(cb)` | Run a worklet every frame (game loops, custom physics). |
 | `useReducedMotion()` | Whether OS Reduce Motion is on. |
-| `useAnimatedSensor(type, config?)` | Device sensor (accelerometer/gyroscope/gravity/rotation) as shared values. |
+| `useAnimatedSensor(type, config?)` | Device sensor as shared values. `type`: `SensorType.ACCELEROMETER/GYROSCOPE/GRAVITY/MAGNETIC_FIELD/ROTATION`; `config`: `interval`, `adjustToInterfaceOrientation`, `iosReferenceFrame`. → `device-motion-sensors.md`. |
 | `useComposedEventHandler([...])` | Combine multiple scroll/event handlers on one component. |
 | `useEvent` / `useHandler` | Low-level building blocks for custom native event handlers (advanced). |
 | `useScrollViewOffset(ref)` | Scroll offset as a shared value. **v2/v3** (v4: `useScrollOffset`). |
@@ -87,9 +87,13 @@ One-line purpose + version note for every common export. Import from `react-nati
 | --- | --- |
 | Entering/Exiting presets | `FadeIn/Out(+Up/Down/Left/Right)`, `SlideIn/Out*`, `ZoomIn/Out*`, `BounceIn/Out`, `FlipIn/Out*`, `StretchIn/Out`, `Lightspeed*`, `Pinwheel`, `Roll*`. |
 | `LinearTransition` | Animate layout/position changes (older: `Layout`). |
+| `CurvedTransition` | Per-dimension easing: `.easingX/Y/Width/Height()`. |
 | `FadingTransition` / `SequencedTransition` / `JumpingTransition` | Alternate layout transition styles. |
+| `EntryExitTransition` | Layout transition built from an `entering` + `exiting` animation. |
 | `Keyframe` | Custom multi-stop entering/exiting animation. |
+| `LayoutAnimationConfig` | Component wrapper: `skipEntering`/`skipExiting` for a subtree. |
 | `ReduceMotion` | `System`/`Always`/`Never` for `.reduceMotion(...)`. |
+| `ReducedMotionConfig` | Component: set app-wide reduce-motion behavior (`mode={ReduceMotion.*}`). |
 | `SharedTransition` | Custom shared element transition (experimental). |
 
 Modifiers on presets: `.duration() .delay() .springify() .damping() .stiffness() .mass() .easing() .randomDelay() .withInitialValues() .withCallback() .reduceMotion()`.

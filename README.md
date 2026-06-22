@@ -65,7 +65,7 @@ Plus 7 non-negotiable rules (plugin last, never read `.value` in render, never c
 
 ## 📚 What's inside
 
-SKILL.md + **33 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
+SKILL.md + **35 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
 
 ```
 reanimated/
@@ -85,6 +85,8 @@ reanimated/
     ├── layout-animations.md           # entering/exiting/layout, Keyframe, FlatList
     ├── shared-element-transitions.md  # tag-based shared elements
     ├── css-animations-v4.md           # Reanimated 4 CSS animations/transitions
+    ├── device-motion-sensors.md       # useAnimatedSensor: tilt parallax, gravity, gyroscope, shake
+    ├── web-and-platform-support.md    # Web caveats, which props animate, 120fps, platform specifics
     ├── keyboard-and-input-motion.md   # useAnimatedKeyboard, composer lift, sticky CTA
     ├── navigation-animations.md       # Navigation overview: Reanimated × React Navigation / Expo Router
     ├── react-navigation-transitions.md # Deep: native-stack presets vs JS-stack cardStyleInterpolator/transitionSpec
@@ -105,6 +107,28 @@ reanimated/
     ├── testing.md                     # jest mock + patterns
     └── api-reference.md               # full hook/function index + v4 deltas
 ```
+
+---
+
+## 🗺️ Official-docs coverage
+
+Mirrors the [official Reanimated docs](https://docs.swmansion.com/react-native-reanimated/) sidebar so nothing falls through the cracks:
+
+| Docs section | Covered by |
+| --- | --- |
+| Fundamentals (getting started, installation, glossary, your first animation) | `installation-and-setup`, `core-concepts`, `version-guide`, `version-decision-tree` |
+| Core (`useSharedValue`, `useAnimatedStyle/Props/Ref/DerivedValue/Reaction`, `useFrameCallback`, `measure`) | `shared-values`, `animated-styles`, `frame-loops-and-realtime` |
+| Animations (`withTiming/Spring/Decay/Delay/Sequence/Repeat/Clamp`, `Easing`) | `animation-functions`, `easing-and-springs` |
+| Scroll (`useAnimatedScrollHandler`, `useScrollOffset`) | `scroll-and-reactions` |
+| Layout Animations (entering/exiting, list, transitions incl. Curved/EntryExit, Keyframe, custom, `LayoutAnimationConfig`) | `layout-animations`, `custom-animations` |
+| Shared Element Transitions | `shared-element-transitions` |
+| Device (`useAnimatedSensor`, `useAnimatedKeyboard`, `useReducedMotion`, `ReducedMotionConfig`) | `device-motion-sensors`, `keyboard-and-input-motion` |
+| CSS Animations & Transitions (v4) | `css-animations-v4` |
+| Threading / Worklets (`runOnJS/UI`, `scheduleOnRN/UI`, runtimes) | `core-concepts`, `advanced-runtimes` |
+| Guides (performance, web support, supported properties, testing, troubleshooting, migration, compatibility) | `performance`, `web-and-platform-support`, `testing`, `troubleshooting`, `version-guide` |
+| Gestures (react-native-gesture-handler integration) | `gestures` |
+
+Plus senior-level material the docs don't ship: component recipes (`buttons-and-microinteractions`, `cards`, `overlays-and-modals`, `inputs-and-indicators`), `screen-choreography`, `native-interop`, and `typescript-and-clean-code`.
 
 ---
 
