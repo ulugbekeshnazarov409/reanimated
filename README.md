@@ -85,7 +85,7 @@ reanimated/
     ├── layout-animations.md           # entering/exiting/layout, Keyframe, FlatList
     ├── shared-element-transitions.md  # tag-based shared elements
     ├── css-animations-v4.md           # Reanimated 4 CSS animations/transitions
-    ├── blur-and-liquid-glass.md       # expo-blur, iOS 26 Liquid Glass, Skia blur — install + animate
+    ├── blur-and-liquid-glass.md       # expo-blur, animated iOS 26 Liquid Glass + cross-platform smart glass (Android via Skia)
     ├── device-motion-sensors.md       # useAnimatedSensor: tilt parallax, gravity, gyroscope, shake
     ├── web-and-platform-support.md    # Web caveats, which props animate, 120fps, platform specifics
     ├── keyboard-and-input-motion.md   # useAnimatedKeyboard, composer lift, sticky CTA
@@ -175,7 +175,7 @@ Make a carousel where the centered card scales up and the pagination dot widens.
 Animate this side drawer to open on edge-swipe with a fading backdrop.
 ```
 ```
-Add an iOS 26 Liquid Glass card with an Android blur fallback.
+Add an animated iOS 26 Liquid Glass card that morphs on press, with an Android Skia-glass fallback.
 ```
 ```
 Make the nav bar frost in as the user scrolls (blur intensity 0→100).

@@ -124,6 +124,101 @@ Use this for animated frosted cards, **progressive blur** (gradient mask over th
 
 ---
 
+## Animated Liquid Glass (the smart cross-platform way)
+
+> Only build this when the prompt explicitly asks for liquid/glass. It's iOS-26-specific + GPU-heavy; don't add it to everything.
+
+**Mental model — what actually animates.** The glass *material* is native and has no "intensity" knob. You animate liquid glass by animating the things *around* it, and the OS refracts live:
+
+1. **Move / scale / reshape the container** (translate, scale, `borderRadius`) → the glass refracts the moving content underneath in real time. This is the bulk of "animated glass."
+2. **Toggle `effect` `'regular'`↔`'clear'`** on press/scroll/selection — it transitions natively.
+3. **Liquid merge** — wrap elements in `LiquidGlassContainerView spacing={n}`; when you animate two glass views within `n` points of each other, they **morph into one connected blob** (the signature effect). Animate their positions with Reanimated to drive the merge.
+4. **Tint** — change `tintColor` for color shifts.
+
+On **Android / iOS < 26** none of this exists, so emulate with Skia: animate `BackdropBlur`'s blur amount + tint + the container's shape. Drive both platforms from the **same shared value** so behavior matches.
+
+### The smart component — one API, both platforms, both animated
+
+```tsx
+import { LiquidGlassView, isLiquidGlassSupported } from '@callstack/liquid-glass';
+import { Canvas, BackdropBlur, Fill, rrect, rect } from '@shopify/react-native-skia';
+import Animated, { useAnimatedStyle, useAnimatedProps, useDerivedValue, SharedValue, interpolate, Extrapolation } from 'react-native-reanimated';
+
+const AGlass = Animated.createAnimatedComponent(LiquidGlassView);
+
+type GlassProps = {
+  progress: SharedValue<number>;  // 0..1 — your driver (scroll, press, sheet)
+  width: number; height: number; radius?: number;
+  children?: React.ReactNode; style?: StyleProp<ViewStyle>;
+};
+
+export function AnimatedGlass({ progress, width, height, radius = 24, children, style }: GlassProps) {
+  // shared animated shape for both platforms
+  const containerStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: interpolate(progress.value, [0, 1], [0.96, 1], Extrapolation.CLAMP) }],
+  }));
+
+  if (isLiquidGlassSupported) {                  // iOS 26+ → real Liquid Glass
+    const glassProps = useAnimatedProps(() => ({
+      effect: progress.value > 0.5 ? 'regular' : 'clear',  // morph the material on the driver
+    }));
+    return (
+      <AGlass animatedProps={glassProps} tintColor="#ffffff22"
+        style={[{ width, height, borderRadius: radius }, containerStyle, style]}>
+        {children}
+      </AGlass>
+    );
+  }
+
+  // Android / iOS<26 → Skia frosted-glass emulation, same driver
+  const blur = useDerivedValue(() => interpolate(progress.value, [0, 1], [6, 22], Extrapolation.CLAMP));
+  return (
+    <Animated.View style={[{ width, height, borderRadius: radius, overflow: 'hidden' }, containerStyle, style]}>
+      <Canvas style={StyleSheet.absoluteFill}>
+        <BackdropBlur blur={blur} clip={rrect(rect(0, 0, width, height), radius, radius)}>
+          <Fill color="rgba(255,255,255,0.14)" />
+        </BackdropBlur>
+      </Canvas>
+      {children}
+    </Animated.View>
+  );
+}
+```
+One `progress` shared value drives the iOS material morph **and** the Android blur — drive it from scroll, a press, or a sheet's open state and both platforms animate in lockstep. (Keep the `isLiquidGlassSupported` branch stable per mount so hook order doesn't change.)
+
+### Scroll-driven glass header (beautiful + cross-platform)
+
+```tsx
+const aref = useAnimatedRef<Animated.ScrollView>();
+const scroll = useScrollOffset(aref);
+const glass = useDerivedValue(() => interpolate(scroll.value, [0, 90], [0, 1], Extrapolation.CLAMP));
+
+// header frosts in, title fades up as you scroll:
+<AnimatedGlass progress={glass} width={SCREEN_W} height={100} radius={0} style={styles.header}>
+  <Animated.Text style={[styles.title, useAnimatedStyle(() => ({ opacity: glass.value }))]}>Title</Animated.Text>
+</AnimatedGlass>
+```
+
+### Liquid merge — FAB → menu (iOS 26)
+
+```tsx
+import { LiquidGlassContainerView } from '@callstack/liquid-glass';
+const open = useSharedValue(0);
+// each action's translateY animates from 0 (merged into the FAB) to its slot;
+// within `spacing` they read as one liquid blob, then separate as they move apart.
+<LiquidGlassContainerView spacing={24}>
+  <AnimatedGlass progress={open} width={56} height={56} radius={28}>{/* FAB icon */}</AnimatedGlass>
+  {actions.map((a, i) => (
+    <Animated.View key={a.id} style={useAnimatedStyle(() => ({ transform: [{ translateY: -open.value * (i + 1) * 64 }], opacity: open.value }))}>
+      <AnimatedGlass progress={open} width={48} height={48} radius={24}>{a.icon}</AnimatedGlass>
+    </Animated.View>
+  ))}
+</LiquidGlassContainerView>
+```
+Animating the children's positions through the container's `spacing` zone is what produces the gooey merge/split. (Android falls back to separate Skia-glass buttons — still animated, just no liquid merge.)
+
+---
+
 ## Recipes
 - **Frosted nav bar / header:** absolute `BlurView` behind the bar; animate `intensity` from scroll (above). Title cross-fades as content reaches the bar (`patterns-recipes.md` §4).
 - **Glass tab bar:** `BlurView`/`GlassView` as the tab bar background; active tab indicator slides over it (`buttons-and-microinteractions.md` §7).
