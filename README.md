@@ -65,7 +65,7 @@ Plus 7 non-negotiable rules (plugin last, never read `.value` in render, never c
 
 ## 📚 What's inside
 
-SKILL.md + **28 reference files**, loaded on demand:
+SKILL.md + **31 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
 
 ```
 reanimated/
@@ -95,6 +95,9 @@ reanimated/
     ├── buttons-and-microinteractions.md # Press/loading/success morphs, toggle, like burst, FAB, ripple
     ├── cards.md                       # Press & lift, swipe stack, expand-to-detail, 3D flip, tilt
     ├── screen-choreography.md         # Whole-screen orchestration: staggered reveal, state continuity, interruptibility
+    ├── custom-animations.md           # Build bespoke effects from primitives when no preset fits
+    ├── native-interop.md              # Animate native/third-party props; when (& how) to drop to native code
+    ├── typescript-and-clean-code.md   # Team-grade typing, reusable hooks, clean-code rules
     ├── performance.md                 # 60/120fps, transforms over layout, runOnJS hygiene
     ├── troubleshooting.md             # exact error → fix tables
     ├── testing.md                     # jest mock + patterns
@@ -128,6 +131,12 @@ Build a Tinder-style swipeable card stack with rotation and velocity throw.
 ```
 ```
 Choreograph this screen's entrance — stagger the sections and cross-fade the skeleton into content.
+```
+```
+No preset fits — build a custom magnetic snap animation from scratch.
+```
+```
+Animate a prop on my custom native chart view at 120fps.
 ```
 
 ---
