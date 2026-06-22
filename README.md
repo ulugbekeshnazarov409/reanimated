@@ -65,7 +65,7 @@ Plus 7 non-negotiable rules (plugin last, never read `.value` in render, never c
 
 ## 📚 What's inside
 
-SKILL.md + **25 reference files**, loaded on demand:
+SKILL.md + **28 reference files**, loaded on demand:
 
 ```
 reanimated/
@@ -92,6 +92,9 @@ reanimated/
     ├── frame-loops-and-realtime.md    # useFrameCallback — game loops, physics, scrubbers
     ├── advanced-runtimes.md           # createWorkletRuntime, off-UI-thread computation (expert)
     ├── patterns-recipes.md            # 11 production recipes (swipe-delete, parallax, sheet, shimmer…)
+    ├── buttons-and-microinteractions.md # Press/loading/success morphs, toggle, like burst, FAB, ripple
+    ├── cards.md                       # Press & lift, swipe stack, expand-to-detail, 3D flip, tilt
+    ├── screen-choreography.md         # Whole-screen orchestration: staggered reveal, state continuity, interruptibility
     ├── performance.md                 # 60/120fps, transforms over layout, runOnJS hygiene
     ├── troubleshooting.md             # exact error → fix tables
     ├── testing.md                     # jest mock + patterns
@@ -116,6 +119,15 @@ I'm getting "Reanimated failed to create a worklet" — what's wrong?
 ```
 ```
 Animate the balance number rolling up, with tabular figures. We're on Reanimated 4.
+```
+```
+Make this submit button morph into a spinner, then draw a success checkmark.
+```
+```
+Build a Tinder-style swipeable card stack with rotation and velocity throw.
+```
+```
+Choreograph this screen's entrance — stagger the sections and cross-fade the skeleton into content.
 ```
 
 ---

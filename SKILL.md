@@ -21,7 +21,10 @@ description: >-
   animation, Keyframe, layout animation, shared element transition, gesture handler
   animation, react-native-worklets, Reanimated 4 CSS animation, animate a React Native
   component, 60fps RN animation, swipe to delete, drag to reorder, parallax header,
-  animated bottom sheet RN.
+  animated bottom sheet RN, animated button, loading button, success checkmark animation,
+  animated toggle/switch, like/heart burst, card press animation, swipeable cards,
+  expand card to detail, card flip, screen entrance animation, staggered reveal,
+  micro-interactions, screen choreography, interruptible animation, reduce motion.
 ---
 
 # React Native Reanimated
@@ -46,8 +49,9 @@ Everything else — animation functions, interpolation, gestures, layout animati
 1. **Detect the version & setup.** Check `package.json` for `react-native-reanimated` (v2/v3/v4) and whether `react-native-worklets` is present (→ v4). Verify the Babel/worklets plugin and (v4) New Architecture. → `references/installation-and-setup.md` + `references/version-guide.md`. Write code for the version the project actually uses.
 2. **Ground in the core concepts** if doing anything non-trivial → `references/core-concepts.md` (worklets, threads, runOnJS/runOnUI, the rules that cause 90% of bugs).
 3. **Pull the right reference for the task** (map below) — shared values, animated styles, animation functions, interpolation, scroll, gestures, layout animations, CSS animations.
-4. **For a full UI effect**, use `references/patterns-recipes.md` (swipe-to-delete, drag-to-reorder, parallax header, animated tab bar, bottom sheet, skeleton, carousel…).
-5. **Verify** against `references/performance.md` (keep work off the JS thread) and `references/troubleshooting.md` (the exact-error → fix tables). Mock with `references/testing.md` if tests exist.
+4. **For a full UI effect**, use `references/patterns-recipes.md` (press scale, swipe-to-delete, drag-to-reorder, parallax/collapsing header, animated tab indicator, bottom sheet, skeleton shimmer, numeric roll, accordion, pull-to-refresh). For component-specific senior polish go deeper: `references/buttons-and-microinteractions.md` (loading/success morphs, toggles, like burst, FAB, ripple), `references/cards.md` (press/lift, swipe stack, expand-to-detail, flip, tilt).
+5. **Choreograph the whole screen**, not just one element → `references/screen-choreography.md` (entrance sequencing/staggering, loading→content continuity, interruptibility, Reduce Motion). This is what makes a screen feel senior-built rather than a pile of animations.
+6. **Verify** against `references/performance.md` (keep work off the JS thread) and `references/troubleshooting.md` (the exact-error → fix tables). Mock with `references/testing.md` if tests exist.
 
 > Companion: for *design* decisions (what to animate, timing/spring feel, choreography), use the `mobile-design` skill's `motion-recipes.md` / `gestures-and-haptics.md`. This skill is the *implementation* depth for Reanimated specifically.
 
@@ -84,6 +88,9 @@ Everything else — animation functions, interpolation, gestures, layout animati
 - `references/frame-loops-and-realtime.md` — `useFrameCallback`: per-frame worklets for game loops, physics, scrubbers, Skia/audio visualizers; delta-time integration.
 - `references/advanced-runtimes.md` — Expert: `createWorkletRuntime`, `runOnRuntime`/`scheduleOnRuntime`, off-UI-thread background worklet computation; when (not) to use.
 - `references/patterns-recipes.md` — Production recipes: press scale, swipe-to-delete, drag-to-reorder, parallax/collapsing header, animated tab indicator, bottom sheet, skeleton shimmer, numeric roll, FlatList item entrances, accordion, pull-to-refresh.
+- `references/buttons-and-microinteractions.md` — **Senior button/control polish:** press feedback, loading→spinner→success morph, SVG checkmark draw, toggle/switch, checkbox/radio, like burst, segmented control, FAB/speed-dial, ripple, icon morphs.
+- `references/cards.md` — **Senior card motion:** press & lift (scale + shadow), swipeable card stack (Tinder), expand card → detail (hero/shared element), 3D flip, parallax tilt, staggered grid entrances.
+- `references/screen-choreography.md` — **Orchestrate a whole screen:** entrance sequencing/staggering by hierarchy, loading→content continuity, empty/error/success states, scroll reveals, cross-screen continuity, interruptibility, Reduce Motion. The junior-vs-senior tells.
 - `references/performance.md` — Keep work on the UI thread, dependency hygiene, `Animated.createAnimatedComponent`, frame budget, 120Hz, common jank causes.
 - `references/troubleshooting.md` — Exact-error → fix tables (worklet creation, plugin, `.value` in render, stale state, gesture not animating, layout-animation crashes).
 - `references/testing.md` — Jest setup/mock, `jest.useFakeTimers`, advancing animations, RNTL patterns.
