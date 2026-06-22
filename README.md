@@ -33,20 +33,42 @@ AI gets Reanimated wrong in predictable ways: forgets the Babel plugin, reads `.
 
 ## 🚀 Install
 
-A skill is a folder under `~/.claude/skills/`. Clone it there:
+Pick any method — all drop the skill into `~/.claude/skills/reanimated`. Then open Claude Code; it **auto-activates** whenever your request is about Reanimated. No build step.
 
+### `npx skills` (the [skills.sh](https://skills.sh) CLI — recommended)
 ```bash
-git clone https://github.com/ulugbekeshnazarov409/reanimated.git \
-  ~/.claude/skills/reanimated
+npx skills add ulugbekeshnazarov409/reanimated
+```
+GitHub is the registry — installing this way also surfaces the skill on **skills.sh** automatically.
+
+### curl (one-liner)
+```bash
+curl -fsSL https://raw.githubusercontent.com/ulugbekeshnazarov409/reanimated/main/install.sh | bash
+```
+Re-run anytime to update. Override the target with `CLAUDE_SKILLS_DIR=…` or a ref with `REANIMATED_SKILL_REF=…`.
+
+### npm
+```bash
+npx reanimated-claude-skill          # copies the skill into ~/.claude/skills
+# or, after a global install:
+npm i -g reanimated-claude-skill && reanimated-claude-skill
 ```
 
+### Claude Code plugin (marketplace)
+```text
+/plugin marketplace add ulugbekeshnazarov409/reanimated
+/plugin install reanimated@reanimated
+```
+
+### git clone (manual)
+```bash
+git clone https://github.com/ulugbekeshnazarov409/reanimated.git ~/.claude/skills/reanimated
+```
 **Windows (PowerShell):**
 ```powershell
 git clone https://github.com/ulugbekeshnazarov409/reanimated.git `
   "$env:USERPROFILE\.claude\skills\reanimated"
 ```
-
-Open Claude Code — the skill activates automatically when your request is about Reanimated (or any of its APIs). No build step.
 
 ---
 
@@ -188,6 +210,17 @@ Make the nav bar frost in as the user scrolls (blur intensity 0→100).
 Most live apps are on **v3**; new Expo SDK 54+ apps are on **v4** (New Architecture, separate `react-native-worklets` package, CSS animations, renamed APIs). The skill detects which from `package.json` and writes the correct API — never mixing v3 and v4 names.
 
 ---
+
+## 📈 Get it discovered (climb the rankings)
+
+skills.sh ranks by install telemetry, and the Claude plugin directories favor clear metadata + activity. To get this skill to the top:
+
+1. **Drive real installs.** The `npx skills add …` one-liner is what feeds skills.sh ranking — put it first in the README, share it, and pin it in the repo description.
+2. **Sharp frontmatter & keywords.** `SKILL.md`'s `name`/`description` and the `keywords` in `package.json` / `.claude-plugin/*.json` are the search surface — keep them specific (already tuned for Reanimated triggers).
+3. **Set GitHub repo topics:** `claude-code`, `claude-skill`, `agent-skills`, `react-native`, `reanimated`, `expo`, `animation` — and a one-line description with the install command.
+4. **List on community marketplaces & directories:** open a PR/submission to [anthropics/claude-plugins-official](https://github.com/anthropics/claude-plugins-official), [claudemarketplaces.com](https://claudemarketplaces.com), tonsofskills.com, and lobehub's skills directory. Each links back and adds installs.
+5. **Publish to npm** (`npm publish`) so `npx reanimated-claude-skill` works and the package shows up in npm search under the keywords above.
+6. **Stars & proof.** A clear README (badges, GIFs of the recipes), example prompts, and version-correctness are what convert a listing view into an install and a star.
 
 ## 🤝 Contributing
 
