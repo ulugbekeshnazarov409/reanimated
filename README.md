@@ -87,7 +87,7 @@ Plus 7 non-negotiable rules (plugin last, never read `.value` in render, never c
 
 ## 📚 What's inside
 
-SKILL.md + **36 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
+SKILL.md + **39 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
 
 ```
 reanimated/
@@ -128,8 +128,13 @@ reanimated/
     ├── performance.md                 # 60/120fps, transforms over layout, runOnJS hygiene
     ├── troubleshooting.md             # exact error → fix tables
     ├── testing.md                     # jest mock + patterns
-    └── api-reference.md               # full hook/function index + v4 deltas
+    ├── api-reference.md               # full hook/function index + v4 deltas
+    ├── swiftui-and-swift.md           # Native iOS: SwiftUI/UIKit animation + native Liquid Glass
+    ├── jetpack-compose-and-kotlin.md  # Native Android: Compose animation + Haze glassmorphism
+    └── flutter-and-dart.md            # Flutter: animation + BackdropFilter blur + Liquid Glass packages
 ```
+
+The last three are **cross-framework companions**: when the project is native iOS (Swift), native Android (Kotlin/Compose), or Flutter instead of React Native, they carry the same senior motion bar + Apple Liquid Glass model into that stack.
 
 ---
 

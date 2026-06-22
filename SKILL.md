@@ -35,7 +35,12 @@ description: >-
   blur, BlurView, frosted glass, glassmorphism, iOS 26 Liquid Glass, GlassView,
   expo-blur, expo-glass-effect, liquid-glass, Skia BackdropBlur, animated blur,
   animated liquid glass, liquid glass merge/morph, cross-platform glass Android,
-  blurred nav bar, glass card, blurred modal backdrop.
+  blurred nav bar, glass card, blurred modal backdrop. Cross-framework companions —
+  SwiftUI animation, glassEffect, GlassEffectContainer, matchedGeometryEffect,
+  PhaseAnimator, KeyframeAnimator, UIKit UIViewPropertyAnimator, UIGlassEffect,
+  Jetpack Compose animation, animateFloatAsState, AnimatedVisibility, Haze blur,
+  Compose glassmorphism, Flutter animation, AnimationController, BackdropFilter,
+  Hero, flutter_animate, liquid_glass_widgets, Flutter Liquid Glass.
 ---
 
 # React Native Reanimated
@@ -96,6 +101,9 @@ Every code answer should be: **minimal** (no dead code, no unused shared values)
 | Blur / frosted glass / glassmorphism / iOS 26 Liquid Glass | `blur-and-liquid-glass.md` |
 | Device tilt / gyroscope / accelerometer / shake | `device-motion-sensors.md` |
 | Web support / which props animate / 120fps / platform diffs | `web-and-platform-support.md` |
+| Native iOS — SwiftUI/UIKit animation + Liquid Glass | `swiftui-and-swift.md` |
+| Native Android — Jetpack Compose (Kotlin) animation + glass | `jetpack-compose-and-kotlin.md` |
+| Flutter (Dart) animation + blur/Liquid Glass | `flutter-and-dart.md` |
 | Reanimated 4 CSS animations & transitions | `css-animations-v4.md` |
 | Navigation / screen transitions | `navigation-animations.md`, `react-navigation-transitions.md`, `expo-router-transitions.md` |
 | Per-frame physics / game loop | `frame-loops-and-realtime.md` |
@@ -154,3 +162,8 @@ Every code answer should be: **minimal** (no dead code, no unused shared values)
 - `references/troubleshooting.md` — Exact-error → fix tables (worklet creation, plugin, `.value` in render, stale state, gesture not animating, layout-animation crashes).
 - `references/testing.md` — Jest setup/mock, `jest.useFakeTimers`, advancing animations, RNTL patterns.
 - `references/api-reference.md` — Compact index of every hook/function/animation/util with one-line purpose + version note.
+
+**Cross-framework companions** (same senior motion bar + Apple Liquid Glass model, when the project isn't React Native):
+- `references/swiftui-and-swift.md` — **Native iOS:** SwiftUI animation (springs, `matchedGeometryEffect`, `Phase`/`KeyframeAnimator`, transitions) + **native Liquid Glass** (`.glassEffect`, `GlassEffectContainer`, `glassEffectID`, concentricity); UIKit (`UIViewPropertyAnimator`, `UIVisualEffectView` + `UIGlassEffect`).
+- `references/jetpack-compose-and-kotlin.md` — **Native Android:** Compose animation (`animate*AsState`, `AnimatedVisibility/Content`, `updateTransition`, `Animatable`, springs, `graphicsLayer`, shared transitions) + glassmorphism (**Haze** backdrop blur, `Modifier.blur` caveats; Liquid Glass emulated).
+- `references/flutter-and-dart.md` — **Flutter:** animation (implicit widgets, `AnimationController`+`Tween`, `SpringSimulation`, `Hero`, `flutter_animate`) + blur (`BackdropFilter`/`ImageFilter.blur`) and iOS 26 Liquid Glass packages (`liquid_glass_widgets`, `cupertino_liquid_glass`).
