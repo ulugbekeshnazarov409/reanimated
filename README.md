@@ -65,7 +65,7 @@ Plus 7 non-negotiable rules (plugin last, never read `.value` in render, never c
 
 ## 📚 What's inside
 
-SKILL.md + **31 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
+SKILL.md + **33 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
 
 ```
 reanimated/
@@ -94,6 +94,8 @@ reanimated/
     ├── patterns-recipes.md            # 11 production recipes (swipe-delete, parallax, sheet, shimmer…)
     ├── buttons-and-microinteractions.md # Press/loading/success morphs, toggle, like burst, FAB, ripple
     ├── cards.md                       # Press & lift, swipe stack, expand-to-detail, 3D flip, tilt
+    ├── overlays-and-modals.md         # Modal, alert, action sheet, drawer, dropdown, tooltip, toast
+    ├── inputs-and-indicators.md       # Slider, carousel/pager + dots, dropdown, stepper, badge, progress
     ├── screen-choreography.md         # Whole-screen orchestration: staggered reveal, state continuity, interruptibility
     ├── custom-animations.md           # Build bespoke effects from primitives when no preset fits
     ├── native-interop.md              # Animate native/third-party props; when (& how) to drop to native code
@@ -137,6 +139,15 @@ No preset fits — build a custom magnetic snap animation from scratch.
 ```
 ```
 Animate a prop on my custom native chart view at 120fps.
+```
+```
+Build a swipe-to-dismiss toast that auto-hides and stacks cleanly.
+```
+```
+Make a carousel where the centered card scales up and the pagination dot widens.
+```
+```
+Animate this side drawer to open on edge-swipe with a fading backdrop.
 ```
 
 ---
