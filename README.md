@@ -65,7 +65,7 @@ Plus 7 non-negotiable rules (plugin last, never read `.value` in render, never c
 
 ## 📚 What's inside
 
-SKILL.md + **35 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
+SKILL.md + **36 reference files**, loaded on demand (progressive disclosure — the agent opens only the 1–3 it needs per task, so a small always-loaded `SKILL.md` keeps token cost low while depth stays one hop away):
 
 ```
 reanimated/
@@ -85,6 +85,7 @@ reanimated/
     ├── layout-animations.md           # entering/exiting/layout, Keyframe, FlatList
     ├── shared-element-transitions.md  # tag-based shared elements
     ├── css-animations-v4.md           # Reanimated 4 CSS animations/transitions
+    ├── blur-and-liquid-glass.md       # expo-blur, iOS 26 Liquid Glass, Skia blur — install + animate
     ├── device-motion-sensors.md       # useAnimatedSensor: tilt parallax, gravity, gyroscope, shake
     ├── web-and-platform-support.md    # Web caveats, which props animate, 120fps, platform specifics
     ├── keyboard-and-input-motion.md   # useAnimatedKeyboard, composer lift, sticky CTA
@@ -128,7 +129,7 @@ Mirrors the [official Reanimated docs](https://docs.swmansion.com/react-native-r
 | Guides (performance, web support, supported properties, testing, troubleshooting, migration, compatibility) | `performance`, `web-and-platform-support`, `testing`, `troubleshooting`, `version-guide` |
 | Gestures (react-native-gesture-handler integration) | `gestures` |
 
-Plus senior-level material the docs don't ship: component recipes (`buttons-and-microinteractions`, `cards`, `overlays-and-modals`, `inputs-and-indicators`), `screen-choreography`, `native-interop`, and `typescript-and-clean-code`.
+Plus senior-level material the docs don't ship: component recipes (`buttons-and-microinteractions`, `cards`, `overlays-and-modals`, `inputs-and-indicators`), `screen-choreography`, `blur-and-liquid-glass` (frosted/glass UI + iOS 26 Liquid Glass), `native-interop`, and `typescript-and-clean-code`.
 
 ---
 
@@ -172,6 +173,12 @@ Make a carousel where the centered card scales up and the pagination dot widens.
 ```
 ```
 Animate this side drawer to open on edge-swipe with a fading backdrop.
+```
+```
+Add an iOS 26 Liquid Glass card with an Android blur fallback.
+```
+```
+Make the nav bar frost in as the user scrolls (blur intensity 0→100).
 ```
 
 ---

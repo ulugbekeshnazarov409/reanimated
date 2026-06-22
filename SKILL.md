@@ -31,7 +31,10 @@ description: >-
   stepper, animated badge, notification dot, progress bar, progress ring,
   useAnimatedSensor, gyroscope animation, accelerometer, device tilt parallax,
   shake to undo, Reanimated web support, supported style properties,
-  LayoutAnimationConfig, ReducedMotionConfig, CurvedTransition, EntryExitTransition.
+  LayoutAnimationConfig, ReducedMotionConfig, CurvedTransition, EntryExitTransition,
+  blur, BlurView, frosted glass, glassmorphism, iOS 26 Liquid Glass, GlassView,
+  expo-blur, expo-glass-effect, liquid-glass, Skia BackdropBlur, animated blur,
+  blurred nav bar, glass card, blurred modal backdrop.
 ---
 
 # React Native Reanimated
@@ -89,6 +92,7 @@ Every code answer should be: **minimal** (no dead code, no unused shared values)
 | Slider / carousel / pager / dropdown / stepper / badge / progress | `inputs-and-indicators.md` |
 | Whole-screen orchestration / entrance / state continuity | `screen-choreography.md` |
 | Keyboard-following UI | `keyboard-and-input-motion.md` |
+| Blur / frosted glass / glassmorphism / iOS 26 Liquid Glass | `blur-and-liquid-glass.md` |
 | Device tilt / gyroscope / accelerometer / shake | `device-motion-sensors.md` |
 | Web support / which props animate / 120fps / platform diffs | `web-and-platform-support.md` |
 | Reanimated 4 CSS animations & transitions | `css-animations-v4.md` |
@@ -127,6 +131,7 @@ Every code answer should be: **minimal** (no dead code, no unused shared values)
 - `references/layout-animations.md` — Entering/Exiting (`FadeIn`, `SlideInDown`…), `Layout`/`LinearTransition`, `Keyframe`, modifiers, custom, `itemLayoutAnimation`.
 - `references/shared-element-transitions.md` — Shared element transitions (tag-based) + caveats / status.
 - `references/css-animations-v4.md` — **Reanimated 4** CSS-style `animationName`/`transition*` on `Animated` components (full property set + play-state + transition-behavior); when to prefer over shared values.
+- `references/blur-and-liquid-glass.md` — **Blur & glass:** install/configure `expo-blur` (Android `experimentalBlurMethod`), iOS 26 **Liquid Glass** (`expo-glass-effect` / `@callstack/liquid-glass` + availability gating/fallback), and Skia `BackdropBlur`; animate blur intensity with `useAnimatedProps`/shared values; frosted nav/tab bar, glass card, blurred sheet backdrop; Reduce Transparency.
 - `references/device-motion-sensors.md` — **`useAnimatedSensor`:** `SensorType` (accelerometer/gyroscope/gravity/magnetic/rotation), config, tilt parallax, gravity-follow, shake detection; smoothing + Reduce Motion.
 - `references/web-and-platform-support.md` — **Web caveats** (worklets→plain JS, dependency arrays, no `measure`/layout-animations), which style props are cheap vs costly to animate, 120fps flag, shadows/`transformOrigin`/New-Arch platform specifics.
 - `references/keyboard-and-input-motion.md` — `useAnimatedKeyboard`; chat composer lift, sticky CTA above keyboard, list-follow; `react-native-keyboard-controller`. Where real apps break.

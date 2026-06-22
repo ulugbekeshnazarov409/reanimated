@@ -93,6 +93,8 @@ const AnimatedThing = Animated.createAnimatedComponent(Thing);
 // animate props via useAnimatedProps (see animated-styles.md)
 ```
 
+> Blur/glass surfaces need a native blur module (`expo-blur`, `expo-glass-effect` / `@callstack/liquid-glass`, or `@shopify/react-native-skia`) — install + platform config in `blur-and-liquid-glass.md`.
+
 ---
 
 ## New Architecture (v4)
