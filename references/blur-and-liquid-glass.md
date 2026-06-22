@@ -124,6 +124,27 @@ Use this for animated frosted cards, **progressive blur** (gradient mask over th
 
 ---
 
+## Apple's Liquid Glass model (ground truth)
+
+Liquid Glass is Apple's adaptive **material for controls & navigation** (iOS/iPadOS/macOS 26) — *not* for content. It bends, shapes, and concentrates light in real time: it blurs what's behind, reflects the color/light of surrounding content, and reacts to touch like a lightweight liquid. Animating it correctly means honoring these behaviors, not just "blurry box." (Sources: Apple's *Liquid Glass* / *Adopting Liquid Glass* technology overviews, HIG *Materials*, WWDC25 "Meet Liquid Glass".)
+
+| Apple concept | What it means | RN mapping |
+| --- | --- | --- |
+| **Regular vs Clear** | *Regular* = full adaptive effects, legible over anything (default). *Clear* = permanently more transparent, no adaptation — for rich media underneath; **needs a dimming layer** for legibility. | `effect="regular" \| "clear"` (callstack) / `glassEffectStyle` (expo). For Clear, add a scrim. |
+| **Lives on a floating plane above content** | Glass sits on a layer above content, **never directly on it**. In steady states avoid glass⇄content intersection — reposition/scale content for separation. | Render glass in an absolute layer; keep content padded clear of it. |
+| **Scroll edge effect** | A subtle blur at the scroll boundary replaces hard dividers, keeping controls legible over moving content. | Frost the top/bottom edge as content scrolls under it (recipe below). |
+| **Interactivity** | On touch the control **scales, bounces, shimmers**; on deeper engagement glass **recedes, grows slightly, and becomes more opaque**. | `interactive` prop; or replicate with Reanimated (scale/bounce + shimmer sweep). |
+| **Flex / morph at larger sizes** | When glass expands (toolbar button → menu) it simulates a **thicker** material: deeper shadows, stronger lensing/refraction, softer light scatter. | On expand: grow + deepen shadow (+ Android Skia: raise blur + shadow). |
+| **Morphing / single shape** | `GlassEffectContainer` merges nearby glass into one shape that morphs apart/together as the layout changes — controls feel like one fluid plane across contexts. | `LiquidGlassContainerView spacing` / `GlassContainer`; animate children's positions. |
+| **Concentricity** | Nested shapes keep **concentric corner radii** (child radius derived from container). | child `borderRadius = containerRadius − padding`. |
+| **Tinting** | Tint generates tones from the brightness underneath (like real colored glass). **Use selectively** for primary actions — don't tint everything. | `tintColor` on the primary control only. |
+| **Accessibility** | *Reduce Transparency* → frostier/more opaque; *Increase Contrast*; *Reduce Motion* → drop morph/bounce. Adapt without losing the look. | Gate on the OS settings (see Accessibility section). |
+| **Performance** | Too many glass effects/containers onscreen degrades performance — **limit concurrent glass**. | Few glass surfaces per screen; bound their size. |
+
+**Animating Liquid Glass = animating its context, not a blur value.** Move/scale/reshape the glass (it refracts live), morph shapes via the container, toggle Regular↔Clear, deepen on expand, shimmer on touch. On Android these native behaviors don't exist — emulate the *intent* with Skia (blur + tint + shadow + the same transforms) so it reads the same.
+
+---
+
 ## Animated Liquid Glass (the smart cross-platform way)
 
 > Only build this when the prompt explicitly asks for liquid/glass. It's iOS-26-specific + GPU-heavy; don't add it to everything.
@@ -219,18 +240,61 @@ Animating the children's positions through the container's `spacing` zone is wha
 
 ---
 
-## Recipes
-- **Frosted nav bar / header:** absolute `BlurView` behind the bar; animate `intensity` from scroll (above). Title cross-fades as content reaches the bar (`patterns-recipes.md` §4).
-- **Glass tab bar:** `BlurView`/`GlassView` as the tab bar background; active tab indicator slides over it (`buttons-and-microinteractions.md` §7).
-- **Blurred modal/sheet backdrop:** pair the overlay `progress` (`overlays-and-modals.md`) with blur — animate `intensity`/Skia `blur` from `progress`, so the background frosts as the sheet rises.
-- **Glass card press:** `LiquidGlassView effect` toggles `'regular'`↔`'clear'` on press, or scale + the card's blur deepens.
+### Interactive press — scale, bounce, shimmer (Apple's interactive behavior)
+
+Apple's `interactive` glass scales/bounces and shimmers on touch. The lib's `interactive` prop is mount-only, so for a *driven* version replicate it with Reanimated: a quick scale-bounce + a shimmer sweep across the glass.
+
+```tsx
+const press = useSharedValue(0);
+const shimmer = useSharedValue(-1);
+const onPressIn = () => {
+  press.value = withSequence(withTiming(1, { duration: 90 }), withSpring(0, { damping: 12, stiffness: 280 }));
+  shimmer.value = withTiming(1, { duration: 500 }); // sweep highlight L→R
+};
+const glassStyle = useAnimatedStyle(() => ({ transform: [{ scale: interpolate(press.value, [0, 1], [1, 1.06]) }] }));
+const sweepStyle = useAnimatedStyle(() => ({ transform: [{ translateX: interpolate(shimmer.value, [-1, 1], [-W, W]) }], opacity: interpolate(shimmer.value, [-1, 0, 1], [0, 0.5, 0]) }));
+// shimmer = a thin diagonal white gradient stripe clipped to the glass shape
+```
+
+### Toolbar button → menu (flex to a "thicker" material)
+
+Apple deepens shadow + lensing as glass grows. On expand, grow the glass and deepen its shadow (iOS), or raise Skia blur + shadow (Android) — it should feel more substantial, not just bigger.
+
+```ts
+const open = useSharedValue(0);
+const menuStyle = useAnimatedStyle(() => ({
+  transform: [{ scale: interpolate(open.value, [0, 1], [0.9, 1]) }],
+  shadowOpacity: interpolate(open.value, [0, 1], [0.12, 0.28]),   // iOS: deeper shadow when "thicker"
+  shadowRadius:  interpolate(open.value, [0, 1], [8, 24]),
+}));
+// Android (Skia): blur 12→24, plus a stronger drop shadow layer.
+```
+
+### Scroll edge effect (legibility over moving content)
+
+Instead of a hard divider under a glass bar, frost just the edge as content scrolls under it — Apple's scroll edge effect.
+
+```ts
+const edge = useDerivedValue(() => interpolate(scroll.value, [0, 40], [0, 1], Extrapolation.CLAMP));
+// drive an AnimatedGlass (or BlurView intensity / Skia blur) on the top strip from `edge`;
+// at rest (edge≈0) the bar is clear, on scroll it frosts to keep controls legible.
+```
+
+### More
+- **Frosted nav bar / header:** scroll-driven `AnimatedGlass`/`BlurView`; title cross-fades as content reaches the bar (`patterns-recipes.md` §4). Keep content padded so it never sits *under* the glass at rest (Apple's separation rule).
+- **Glass tab bar:** glass background; active indicator slides over it (`buttons-and-microinteractions.md` §7). Tint **only** the active item.
+- **Blurred modal/sheet backdrop:** pair the overlay `progress` (`overlays-and-modals.md`) with blur so the background frosts as the sheet rises.
+- **Concentric corners:** a glass control inset in a container should use `containerRadius − inset` for its own radius, so the curves stay concentric (Apple concentricity).
 
 ---
 
-## Accessibility & performance
-- **Reduce Transparency:** honor it — `AccessibilityInfo.isReduceTransparencyEnabled()` (iOS); when on, render a solid/translucent color instead of blur.
-- Blur is **GPU-expensive** — don't stack many large blurred layers or animate blur on huge areas every frame; keep blurred regions bounded.
-- Always ship a **non-blur fallback** (translucent background) for Android-without-experimental-blur and unsupported iOS.
+## Accessibility & performance (Apple's rules)
+- **Reduce Transparency** → make glass **frostier / more opaque** (don't just drop blur): `AccessibilityInfo.isReduceTransparencyEnabled()`; raise the fallback fill opacity / Skia tint.
+- **Reduce Motion** → drop the morph/bounce/shimmer; snap or cross-fade between states (`useReducedMotion()`).
+- **Increase Contrast** → strengthen borders/text and reduce transparency so controls stay legible.
+- **Use tint selectively** — only primary actions; tinting everything is confusing and hurts legibility (HIG).
+- **Limit concurrent glass** — Apple warns too many glass effects/containers degrade performance; keep a few bounded glass surfaces per screen, prefer one `GlassEffectContainer`/`LiquidGlassContainerView` over many separate effects.
+- Always ship a **non-glass fallback** (translucent fill) for Android / iOS < 26; design it to still read as a distinct control layer.
 
 ## Checklist
 - [ ] Detected existing deps; installed only what's missing; `pod-install` (iOS) + dev-client rebuild done.
@@ -238,4 +302,6 @@ Animating the children's positions through the container's `spacing` zone is wha
 - [ ] Android blur opted in via `experimentalBlurMethod` (or Skia); Modal-backdrop caveat handled.
 - [ ] Animated blur via `useAnimatedProps(intensity)` (recent New-Arch) or Skia `BackdropBlur` with a reanimated value.
 - [ ] `createAnimatedComponent(BlurView)` at module scope; blurred areas bounded.
-- [ ] Reduce Transparency honored; solid fallback when blur unsupported.
+- [ ] **Apple model honored:** Regular vs Clear chosen right (Clear gets a scrim); glass on a layer above content with separation; tint only primary actions; concentric corners.
+- [ ] **Animate the context** (move/scale/morph/flex/shimmer), not a raw blur value; glass deepens (shadow/lensing) as it grows.
+- [ ] Reduce Transparency → frostier; Reduce Motion → no morph/bounce; Increase Contrast handled; concurrent glass limited.
