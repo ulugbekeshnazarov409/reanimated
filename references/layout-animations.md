@@ -51,9 +51,28 @@ Apply to a component whose position/size changes so it animates smoothly instead
 import { LinearTransition, FadingTransition, SequencedTransition, JumpingTransition } from 'react-native-reanimated';
 <Animated.View layout={LinearTransition.springify()} />
 ```
-- `LinearTransition` (was `Layout` in older versions) — the common choice; interpolates position/size.
-- `FadingTransition`, `SequencedTransition`, `JumpingTransition` — alternate styles.
+- `LinearTransition` (was `Layout` in older versions) — the common choice; interpolates position **and** size the same way.
+- `CurvedTransition` — different easing per dimension: `.easingX() .easingY() .easingWidth() .easingHeight()`. Use when position and size should feel different.
+- `FadingTransition` — fades out at the old rect, fades in at the new one (no slide).
+- `SequencedTransition` — animates the dimensions one after another; `JumpingTransition` — hops to the new spot.
+- `EntryExitTransition` — combines an `entering` and an `exiting` animation into a layout transition (defaults: `FadeIn`/`FadeOut`); choose both: `EntryExitTransition.entering(FadeIn).exiting(SlideOutLeft)`.
 - v4 removed `combineTransition`.
+
+---
+
+## Controlling the group: LayoutAnimationConfig
+
+Wrap a subtree to control whether its children's layout animations run — most useful to **skip entering animations on first mount** (so a list doesn't all animate in on screen load, only on later changes).
+
+```tsx
+import { LayoutAnimationConfig } from 'react-native-reanimated';
+
+<LayoutAnimationConfig skipEntering>      {/* also: skipExiting */}
+  {items.map((i) => <Animated.View key={i.id} entering={FadeInDown} exiting={FadeOut} layout={LinearTransition} />)}
+</LayoutAnimationConfig>
+```
+- `skipEntering` — children's entering animations don't play while this config is freshly mounted (they still animate on subsequent adds).
+- `skipExiting` — likewise for exits. Toggle these to get "animate changes, not the initial render."
 
 ---
 

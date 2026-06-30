@@ -25,6 +25,7 @@ import Animated from 'react-native-reanimated';
 ```
 - `transitionProperty`: which style keys animate (`'all'` or an array).
 - `transitionDuration`, `transitionDelay`, `transitionTimingFunction` (`'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | cubicBezier(...)`).
+- `transitionBehavior`: `'normal'` | `'allowDiscrete'` — whether discrete (non-numeric) properties may transition.
 - Change the style (e.g. via React state) and it animates — no shared value, no `useAnimatedStyle`.
 
 Great for: hover-less press/selected states, expand/collapse, simple show/hide driven by React state.
@@ -45,12 +46,14 @@ Define keyframes and attach an animation:
     animationTimingFunction: 'ease-out',
     animationIterationCount: 1,          // or 'infinite'
     animationDirection: 'normal',        // 'reverse' | 'alternate' | ...
-    animationFillMode: 'forwards',
+    animationFillMode: 'forwards',     // 'none' | 'forwards' | 'backwards' | 'both'
     animationDelay: 0,
+    animationPlayState: 'running',     // 'running' | 'paused' — pause/resume a loop
   }}
 />
 ```
-- `animationName` takes a keyframes object (`from`/`to` or percentage stops `'0%','50%','100%'`).
+- `animationName` takes a keyframes object (`from`/`to` or percentage stops `'0%','50%','100%'`), or an **array** of them (each with matching array entries for duration/timing).
+- Only the v4 **Supported style properties** set can be animated via CSS — check that page in the v4 docs (`web-and-platform-support.md`); for anything outside it, use shared values.
 - Looping: `animationIterationCount: 'infinite'` + `animationDirection: 'alternate'` (e.g. pulse/shimmer) — no `withRepeat` needed.
 
 ```tsx

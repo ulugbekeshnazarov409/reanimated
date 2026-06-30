@@ -1,0 +1,11 @@
+{
+  "name": "reanimated",
+  "version": "1.0.0",
+  "description": "Expert in React Native Reanimated (v2/v3/v4): worklets, shared values, gestures, layout & CSS animations, senior component recipes, blur & iOS 26 Liquid Glass, performance, version-correct code.",
+  "author": { "name": "ulugbekeshnazarov409", "url": "https://github.com/ulugbekeshnazarov409" },
+  "homepage": "https://github.com/ulugbekeshnazarov409/reanimated#readme",
+  "repository": "https://github.com/ulugbekeshnazarov409/reanimated",
+  "license": "MIT",
+  "keywords": ["react-native", "reanimated", "expo", "animation", "gestures", "liquid-glass", "mobile"],
+  "skills": ["."]
+}

@@ -1,0 +1,51 @@
+{
+  "name": "reanimated-claude-skill",
+  "version": "1.0.0",
+  "description": "Claude Code skill that makes the agent an expert in React Native Reanimated (v2/v3/v4) — worklets, shared values, gestures, layout & CSS animations, component recipes, blur/iOS 26 Liquid Glass, performance, and version-correct code.",
+  "bin": {
+    "reanimated-claude-skill": "bin/install.js"
+  },
+  "scripts": {
+    "postinstall": "node -e \"process.env.REANIMATED_SKILL_AUTOINSTALL && require('./bin/install.js')\"",
+    "install-skill": "node bin/install.js"
+  },
+  "files": [
+    "SKILL.md",
+    "references/",
+    "bin/",
+    "install.sh",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "claude-skill",
+    "agent-skill",
+    "agent-skills",
+    "skills",
+    "ai",
+    "react-native",
+    "reanimated",
+    "react-native-reanimated",
+    "expo",
+    "animation",
+    "gestures",
+    "worklets",
+    "liquid-glass",
+    "blur",
+    "mobile",
+    "ios",
+    "android"
+  ],
+  "homepage": "https://github.com/ulugbekeshnazarov409/reanimated#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ulugbekeshnazarov409/reanimated.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ulugbekeshnazarov409/reanimated/issues"
+  },
+  "author": "ulugbekeshnazarov409",
+  "license": "MIT"
+}

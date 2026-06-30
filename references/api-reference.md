@@ -19,6 +19,10 @@ One-line purpose + version note for every common export. Import from `react-nati
 | `useAnimatedKeyboard()` | Keyboard height/state as shared values. |
 | `useFrameCallback(cb)` | Run a worklet every frame (game loops, custom physics). |
 | `useReducedMotion()` | Whether OS Reduce Motion is on. |
+| `useAnimatedSensor(type, config?)` | Device sensor as shared values. `type`: `SensorType.ACCELEROMETER/GYROSCOPE/GRAVITY/MAGNETIC_FIELD/ROTATION`; `config`: `interval`, `adjustToInterfaceOrientation`, `iosReferenceFrame`. → `device-motion-sensors.md`. |
+| `useComposedEventHandler([...])` | Combine multiple scroll/event handlers on one component. |
+| `useEvent` / `useHandler` | Low-level building blocks for custom native event handlers (advanced). |
+| `useScrollViewOffset(ref)` | Scroll offset as a shared value. **v2/v3** (v4: `useScrollOffset`). |
 
 ---
 
@@ -45,7 +49,9 @@ One-line purpose + version note for every common export. Import from `react-nati
 | `interpolateColor(v, inRange, colors, space?)` | Map a value to colors (`'RGB'`/`'HSV'`). |
 | `Extrapolation` | `CLAMP` / `EXTEND` / `IDENTITY`. |
 | `clamp(v, min, max)` | Bound a value (worklet). |
+| `convertToRGBA(color)` | Parse any color string to an `[r,g,b,a]` array (worklet). |
 | `Easing` | Easing curves: `linear/quad/cubic/sin/exp/circle/poly/bezier/elastic/bounce/back` + `in/out/inOut`. |
+| `configureReanimatedLogger({...})` | Tune/silence Reanimated's dev warnings (strict mode). |
 
 ---
 
@@ -60,6 +66,9 @@ One-line purpose + version note for every common export. Import from `react-nati
 | `makeShareableCloneRecursive` | `createSerializable` | Serialize data for the UI thread (advanced). |
 | `measure(animatedRef)` | (same) | Synchronously measure a node (worklet). |
 | `scrollTo(animatedRef, x, y, animated)` | (same) | Imperative scroll (worklet). |
+| `dispatchCommand(ref, name, args)` | (same) | Send a native view command from a worklet (`native-interop.md`). |
+| `setNativeProps(ref, props)` | (same) | Imperative one-off native prop write from a worklet. |
+| `getRelativeCoords(ref, x, y)` | (same) | Convert absolute → view-relative coords (worklet). |
 
 ---
 
@@ -78,9 +87,13 @@ One-line purpose + version note for every common export. Import from `react-nati
 | --- | --- |
 | Entering/Exiting presets | `FadeIn/Out(+Up/Down/Left/Right)`, `SlideIn/Out*`, `ZoomIn/Out*`, `BounceIn/Out`, `FlipIn/Out*`, `StretchIn/Out`, `Lightspeed*`, `Pinwheel`, `Roll*`. |
 | `LinearTransition` | Animate layout/position changes (older: `Layout`). |
+| `CurvedTransition` | Per-dimension easing: `.easingX/Y/Width/Height()`. |
 | `FadingTransition` / `SequencedTransition` / `JumpingTransition` | Alternate layout transition styles. |
+| `EntryExitTransition` | Layout transition built from an `entering` + `exiting` animation. |
 | `Keyframe` | Custom multi-stop entering/exiting animation. |
+| `LayoutAnimationConfig` | Component wrapper: `skipEntering`/`skipExiting` for a subtree. |
 | `ReduceMotion` | `System`/`Always`/`Never` for `.reduceMotion(...)`. |
+| `ReducedMotionConfig` | Component: set app-wide reduce-motion behavior (`mode={ReduceMotion.*}`). |
 | `SharedTransition` | Custom shared element transition (experimental). |
 
 Modifiers on presets: `.duration() .delay() .springify() .damping() .stiffness() .mass() .easing() .randomDelay() .withInitialValues() .withCallback() .reduceMotion()`.

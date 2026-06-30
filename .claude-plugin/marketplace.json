@@ -1,0 +1,30 @@
+{
+  "name": "reanimated",
+  "description": "Expert Claude Code skill for React Native Reanimated (v2/v3/v4) — animations, gestures, component recipes, blur & iOS 26 Liquid Glass.",
+  "owner": {
+    "name": "ulugbekeshnazarov409",
+    "url": "https://github.com/ulugbekeshnazarov409"
+  },
+  "plugins": [
+    {
+      "name": "reanimated",
+      "displayName": "React Native Reanimated",
+      "description": "Makes the agent an expert in React Native Reanimated: worklets, shared values, gestures, layout & CSS animations, senior component recipes (buttons, cards, overlays, inputs), blur/iOS 26 Liquid Glass, performance, and version-correct code.",
+      "author": { "name": "ulugbekeshnazarov409", "url": "https://github.com/ulugbekeshnazarov409" },
+      "category": "development",
+      "source": "./",
+      "skills": ["."],
+      "homepage": "https://github.com/ulugbekeshnazarov409/reanimated#readme",
+      "version": "1.0.0",
+      "keywords": [
+        "react-native",
+        "reanimated",
+        "expo",
+        "animation",
+        "gestures",
+        "liquid-glass",
+        "mobile"
+      ]
+    }
+  ]
+}
